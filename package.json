@@ -1,0 +1,22 @@
+{
+  "name": "converter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "convert": "node ./convert.js",
+    "start": "node ./convert.js --enable-single-server-mode"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baiyuanneko/Converter.git"
+  },
+  "keywords": [],
+  "author": "baiyuanneko",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/baiyuanneko/Converter/issues"
+  },
+  "homepage": "https://github.com/baiyuanneko/Converter#readme"
+}
