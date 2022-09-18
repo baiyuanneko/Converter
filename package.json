@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/baiyuanneko/Converter/issues"
   },
-  "homepage": "https://github.com/baiyuanneko/Converter#readme"
+  "homepage": "https://github.com/baiyuanneko/Converter#readme",
+  "dependencies": {
+    "iconv-lite": "^0.6.3"
+  }
 }

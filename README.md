@@ -11,6 +11,12 @@ git clone https://github.com/baiyuanneko/Converter
 cd Converter
 ```
 
+Then, install the dependencies.
+
+```sh
+npm install
+```
+
 Then, create a ```source``` folder at the root directory of the repository.
 
 ```sh

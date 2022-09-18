@@ -1,4 +1,5 @@
 const FileSystem = require("fs");
+const Encoding = require("iconv-lite");
 
 let EnableSingleServerMode = false;
 
@@ -60,6 +61,14 @@ const GetMessageObject = (Line, CurrentLogFileDate, Source = "default") => {
     }
 }
 
+const GetContent = (buffer)=>{
+    if(buffer.toString("utf-8").indexOf("�") !== -1){
+        return Encoding.decode(buffer,"GB18030");
+    }else{
+        return buffer.toString("utf-8");
+    }
+}
+
 let FinalResult = new Array();
 
 if (EnableSingleServerMode) {
@@ -77,7 +86,7 @@ if (EnableSingleServerMode) {
     for (let i = 0; i < LogFileList.length; i++) {
         if (LogFileList[i].length === 16 && LogFileContent[i].indexOf(".log") !== -1) {
             let CurrentLogFileDate = `${LogFileList[i].substring(0, 4)}/${LogFileList[i].substring(5, 7)}/${LogFileList[i].substring(8, 10)}`;
-            let CurrentLogFileContentArray = FileSystem.readFileSync(`${__dirname}/source/${LogFileList[i]}`, "utf-8").split(/\r?\n/);
+            let CurrentLogFileContentArray = GetContent(FileSystem.readFileSync(`${__dirname}/source/${LogFileList[i]}`)).split(/\r?\n/);
             for (let j = 0; j < CurrentLogFileContentArray.length; j++) {
                 if (isMessage(CurrentLogFileContentArray[j])) {
                     FinalResult.push(GetMessageObject(CurrentLogFileContentArray[j], CurrentLogFileDate));
@@ -111,7 +120,7 @@ if (EnableSingleServerMode) {
         for (let j = 0; j < CurrentFolderLogFileList.length; j++) {
             if (CurrentFolderLogFileList[j].length === 16 && CurrentFolderLogFileList[j].indexOf(".log") !== -1) {
                 let CurrentLogFileDate = `${CurrentFolderLogFileList[j].substring(0, 4)}/${CurrentFolderLogFileList[j].substring(5, 7)}/${CurrentFolderLogFileList[j].substring(8, 10)}`;
-                let CurrentLogFileContentArray = FileSystem.readFileSync(`${__dirname}/source/${FolderList[i]}/${CurrentFolderLogFileList[j]}`, "utf-8").split(/\r?\n/);
+                let CurrentLogFileContentArray = GetContent(FileSystem.readFileSync(`${__dirname}/source/${FolderList[i]}/${CurrentFolderLogFileList[j]}`)).split(/\r?\n/);
                 for (let k = 0; k < CurrentLogFileContentArray.length; k++) {
                     if (isMessage(CurrentLogFileContentArray[k])) {
                         FinalResult.push(GetMessageObject(CurrentLogFileContentArray[k], CurrentLogFileDate, FolderList[i]));
