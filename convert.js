@@ -35,8 +35,12 @@ const GetMessageContent = (Line) => {
 const isMessage = (Line) => {
     let MatchResult = /\<(.+?)\>/.exec(Line);
     if (MatchResult !== null) {
-        if (MatchResult[1] !== "null" && MatchResult[1].indexOf("init") === -1) {
-            return true;
+        if (MatchResult[1] !== "null" && MatchResult[1].indexOf("init") === -1 && MatchResult[1] !== "password" && MatchResult[1] !== "page" && MatchResult[1] !== "tab") {
+            if(GetMessageContent(Line).charAt(0) === "/" || GetMessageContent(Line).substring(0,5) === "Usage" && GetMessageContent(Line).indexOf("/") !== -1|| GetMessageContent(Line).substring(0,5) === "Tip" && GetMessageContent(Line).indexOf("/") !== -1){
+                return false;
+            }else{
+                return true;
+            }
         } else {
             return false;
         }
